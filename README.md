@@ -14,7 +14,7 @@ Data field Configurations are persistent between simulator sessions. Click „re
 
 The task management system is a clone of Ian „B21“ Lewis’ Soaring Engine in the AS33. Some features like calculating glide ratios could not be recreated, as they are dependent of other instruments in the AS33. 
 
-The wind indicator in the center of the map is loosely based on the LX-„Hawk“ system displaying current (blue) and average (grey) wind-arrows and a green/red column indicator vor the vertical wind component.
+The wind indicator in the center of the map is loosely based on the LX-„Hawk“ system displaying current (blue) and average (grey) wind-arrows and a green/red column indicator for the vertical wind component.
 
 
 Known Limitations: 
