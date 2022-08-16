@@ -311,10 +311,6 @@ class lxn extends NavSystemTouch {
             })
         })
 
-
-
-
-
         /* Populate config-form with all available Variables. Maybe later grouped with optgroup or even split into different selects */
 
         for(var variable in this.vars) {
@@ -494,6 +490,8 @@ class lxn extends NavSystemTouch {
 
             this.STF_SPEED_0_MS = this.vars.stf.value * 0.5144;
             this.STF_SINK_0_MS = this.vars.sink_stf.value * 0.5144;
+
+            this.updateKineticAssistant();
         }
 
         if(this.TIME_S - this.TIMER_1 > 1) {
@@ -1064,6 +1062,32 @@ class lxn extends NavSystemTouch {
             this.vars.sel_apt_ete.value =  time_to_wp_s / 60;
         }
     }
+
+    initKineticAssistant() {
+        this.ground_crew_menu = document.getElementById("ground_crew_menu");
+		this.ground_crew_winch = document.getElementById("ground_crew_winch");
+		this.ground_crew_winch.onclick = function(e) {	parent.toggleKA(50);	};
+		this.ground_crew_push = document.getElementById("ground_crew_push");
+		this.ground_crew_push.onclick = function(e) {	parent.toggleKA(75);	};
+		this.ground_crew_tow = document.getElementById("ground_crew_tow");
+		this.ground_crew_tow.onclick = function(e) {	parent.toggleKA(100);	};
+    }
+
+    updateKineticAssistant() {
+        if(!KAisInit) { this.initKineticAssistant(); return; }
+        this.ground_crew_winch.style.borderColor = SimVar.GetSimVarValue("A:WATER RUDDER HANDLE POSITION", "percent") == 50 ? "red" : "green";
+		this.ground_crew_winch.style.color = SimVar.GetSimVarValue("A:WATER RUDDER HANDLE POSITION", "percent") == 50 ? "red" : "green";
+		this.ground_crew_push.style.borderColor = SimVar.GetSimVarValue("A:WATER RUDDER HANDLE POSITION", "percent") == 75 ? "red" : "green";
+		this.ground_crew_push.style.color = SimVar.GetSimVarValue("A:WATER RUDDER HANDLE POSITION", "percent") == 75 ? "red" : "green";
+		this.ground_crew_tow.style.borderColor = SimVar.GetSimVarValue("A:WATER RUDDER HANDLE POSITION", "percent") == 100 ? "red" : "green";
+		this.ground_crew_tow.style.color = SimVar.GetSimVarValue("A:WATER RUDDER HANDLE POSITION", "percent") == 100 ? "red" : "green";
+    }
+
+    toggleKA(value) {
+		let currValue = SimVar.GetSimVarValue("A:WATER RUDDER HANDLE POSITION", "percent");
+		SimVar.SetSimVarValue("A:WATER RUDDER HANDLE POSITION", "percent", currValue == value ? 0 : value);
+		SimVar.SetSimVarValue("Z:MIC_POSITION", "", 0);
+	}
 
 
 // ***********************************************************************
