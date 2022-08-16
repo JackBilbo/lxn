@@ -1,6 +1,10 @@
 # Nav rework for MSFS gliders
 
-Basic Features
+Installation:
+
+Simply replace the existing LX_MAP folder in your installation at //community/gotfriends2c-premium/html_ui/Pages/VCockpit/Instruments/TouchingCloud/ - after backing up your original files, of course. To get rid of it all, restore your backed up files or re-install the release version.
+
+Basic Features:
 
 All Information is organized in „pages“ (horizontally) and „sub-pages“ (vertically). Pages can be changed by „click and drag“ with the mouse or - more comfortably - through keybinding „transponder(100)“ for horizontal and transponder (1) for vertical scrolling. 
 
