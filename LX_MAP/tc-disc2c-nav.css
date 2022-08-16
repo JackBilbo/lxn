@@ -1039,8 +1039,8 @@ lxn-nav {
 }
 
 #ground_crew_menu #ground_crew_winch, #ground_crew_menu #ground_crew_push, #ground_crew_menu #ground_crew_tow {
-	border: 20px solid #0096ff !important;
-	padding: 50px;
+	border: 12px solid #0096ff !important;
+	padding: 40px;
 	text-align: center;
 	color: #0096ff !important;
 }
