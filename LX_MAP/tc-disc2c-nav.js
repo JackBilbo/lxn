@@ -41,7 +41,7 @@ class lxn extends NavSystemTouch {
         
         this.jbb_lift_dot_delay = 3;
         this.lift_dots = [];
-        this.lift_dots_max = 50;
+        this.lift_dots_max = 40;
 
        	
         this.vars = {            
@@ -968,11 +968,13 @@ class lxn extends NavSystemTouch {
         let svg_el = document.getElementById("lift_dots");
 
         let color = this.vars.current_netto.value > 0 ? "#14852c" : "#cc0000";
-        var newdot = this.svg_circle(position, Math.max(20, this.vars.current_netto.value * 8), 1, color);
+        let radius = Math.max(5, Math.min(Math.abs(this.vars.current_netto.value) * 8, 30));
+        var newdot = this.svg_circle(position, radius, 1, color);
         newdot.setAttribute("fill", color);
     
         this.lift_dots.unshift({
             latlng: position,
+            radius: radius,
             el: newdot
         });
 
@@ -987,7 +989,8 @@ class lxn extends NavSystemTouch {
             let xy = this.LL_to_XY(dot.latlng);
             dot.el.setAttribute("cx", "" + xy.x);
             dot.el.setAttribute("cy", "" + xy.y);
-            dot.el.setAttribute("opacity", (50-i)/50);
+            dot.el.setAttribute("r", dot.radius);
+            dot.el.setAttribute("opacity", (40-i)/40);
 
             if(i > this.lift_dots_max) {
                 svg_el.removeChild(dot.el);
