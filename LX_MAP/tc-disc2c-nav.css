@@ -1021,3 +1021,35 @@ lxn-nav {
 	background-color: #888;
 	color: #000;
 }
+
+/* Kinetic Assistant */
+
+
+#ground_crew_menu {
+	position: relative;
+}
+
+#ground_crew_menu > div {
+	width: 760px;
+	font-weight: bold;
+	font-size: 45px;
+	color: #fff;
+	margin: 50px;
+	text-align: left;
+}
+
+#ground_crew_menu #ground_crew_winch, #ground_crew_menu #ground_crew_push, #ground_crew_menu #ground_crew_tow {
+	border: 20px solid #0096ff !important;
+	padding: 50px;
+	text-align: center;
+	color: #0096ff !important;
+}
+
+#touching_cloud {
+	width: 100%;
+    text-align: center !important;
+}
+
+#touching_cloud img {
+	width: 45%;
+}
