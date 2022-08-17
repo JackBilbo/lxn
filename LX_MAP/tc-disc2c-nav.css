@@ -574,6 +574,19 @@ lxn-nav {
 	font-size: 2rem;
 	padding: var(--horizontalpadding);
 	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+
+.content::-webkit-scrollbar {
+	width: 2rem; /* Mostly for vertical scrollbars */
+	height: 2rem; /* Mostly for horizontal scrollbars */
+}
+.content::-webkit-scrollbar-thumb { /* Foreground */
+	background: #999;
+}
+.content::-webkit-scrollbar-track { /* Background */
+	background: #333;
 }
 
 #taskpagecontent {
@@ -611,6 +624,13 @@ lxn-nav {
 	border-bottom: 1px solid #888;
 }
 
+.NearestList tr { border: 2px solid transparent; }
+.NearestList tr.selected {
+	background-color: #ffcc00;
+	color: #000;
+	border: 2px solid #ffcc00;
+}
+
 .gradientButton {
 	display: flex;
 }
@@ -623,13 +643,11 @@ lxn-nav {
 .gradientButton .mainValue { order: 1; }
 .gradientButton .title { order: 2; }
 
-.gradientButton[state="SelectedWP"] {
-	outline: 2px solid #ffcc00;
-}
-
 #aplist {
 	width: 100%;
 }
+
+.SelectionMenu { display: none; }
 
  #Map {
     position: absolute;

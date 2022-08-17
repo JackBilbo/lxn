@@ -1000,32 +1000,33 @@ class lxn extends NavSystemTouch {
     }
 
     updateSelectedAirport() {
-        var selApt = this.airportlister.getAiportinfo();
+        let svg_el = document.querySelector("#lift_dots");
+        if(svg_el.querySelector("#aptline") != null) {
+            svg_el.removeChild(svg_el.querySelector("#aptline"));
+        }
+
+        if(this.pagepos_x != 0) { return; }  // don't update APT page, if not visible
+
+        let selApt = this.airportlister.getSelectedAirport();
+                
         if(selApt) {        
-            this.vars.sel_apt_icao.value = selApt.icao;  
+            this.vars.sel_apt_icao.value = selApt.ident;  
             this.vars.sel_apt_name.value = selApt.name;
             this.vars.sel_apt_alt.value = 0;
             this.vars.sel_apt_bearing.value = selApt.bearing;
-            this.vars.sel_apt_dist.value = selApt.dist; 
+            this.vars.sel_apt_dist.value = selApt.distance; 
             this.vars.sel_apt_arr_agl.value = 0;
-            
-            let svg_el = document.querySelector("#lift_dots");
-
-            if(svg_el.querySelector("#aptline") != null) {
-                svg_el.removeChild(svg_el.querySelector("#aptline"));
-            }
-
-            if(this.pagepos_x == 0) {
-                let line = this.svg_line( this.PLANE_POSITION , selApt.latlong , 3,"#ffcc00",0,0); // dash_offset
-                line.setAttribute("id","aptline");
+              
+            let line = this.svg_line( this.PLANE_POSITION, selApt.latlng, 3,"#ffcc00",0,0); 
+            line.setAttribute("id","aptline");
                     
-                svg_el.appendChild(line);
+            svg_el.appendChild(line);
 
-                document.querySelector(".airportinfo .runwaylength").innerHTML = this.displayValue(selApt.longestRunway,"ft","alt") + this.units.alt.pref;
-                let opposite = selApt.longestRunwayDirection > 180 ? selApt.longestRunwayDirection - 180 : selApt.longestRunwayDirection + 180;
-                document.querySelector(".airportinfo .runwayorientation").innerHTML = Math.min(opposite,selApt.longestRunwayDirection).toFixed(0) + "/" + Math.max(opposite,selApt.longestRunwayDirection).toFixed(0);
+            document.querySelector(".airportinfo .runwaylength").innerHTML = this.displayValue(selApt.longestRunwayLength,"ft","alt") + this.units.alt.pref;
+            let opposite = selApt.longestRunwayDirection > 180 ? selApt.longestRunwayDirection - 180 : selApt.longestRunwayDirection + 180;
+            document.querySelector(".airportinfo .runwayorientation").innerHTML = Math.min(opposite,selApt.longestRunwayDirection).toFixed(0) + "/" + Math.max(opposite,selApt.longestRunwayDirection).toFixed(0);
                 
-            }
+            
 
             /* arrivalheight - formula as used in waypoint class */
             /* redundant code, but better the reinventing a square wheel */
@@ -1057,7 +1058,7 @@ class lxn extends NavSystemTouch {
             let time_to_wp_s;
             let height_needed_m;
             
-            time_to_wp_s = (selApt.dist * 1852) / velocity_made_good_ms;
+            time_to_wp_s = (selApt.distance * 1852) / velocity_made_good_ms;
             height_needed_m = time_to_wp_s * Math.abs(this.STF_SINK_0_MS); // Sink is negative
             selApt.arrival_height_msl_m = this.ALTITUDE_M - height_needed_m;
 
@@ -1074,10 +1075,11 @@ class lxn extends NavSystemTouch {
 		this.ground_crew_push.onclick = function(e) {	parent.toggleKA(75);	};
 		this.ground_crew_tow = document.getElementById("ground_crew_tow");
 		this.ground_crew_tow.onclick = function(e) {	parent.toggleKA(100);	};
+        this.KAisInit = true;
     }
 
     updateKineticAssistant() {
-        if(!KAisInit) { this.initKineticAssistant(); return; }
+        if(!this.KAisInit) { this.initKineticAssistant(); return; }
         this.ground_crew_winch.style.borderColor = SimVar.GetSimVarValue("A:WATER RUDDER HANDLE POSITION", "percent") == 50 ? "red" : "green";
 		this.ground_crew_winch.style.color = SimVar.GetSimVarValue("A:WATER RUDDER HANDLE POSITION", "percent") == 50 ? "red" : "green";
 		this.ground_crew_push.style.borderColor = SimVar.GetSimVarValue("A:WATER RUDDER HANDLE POSITION", "percent") == 75 ? "red" : "green";
@@ -2906,17 +2908,13 @@ class lxn_Touch_NRST_Airport extends NavSystemTouch_NRST_Airport {
         super.init(root);
 
         this.selectedElement = -1;
-
-        document.querySelectorAll(".NearestList tr").forEach((el) => {
-            el.addEventListener("click", function() {
-                this.style.outline = "3px solid red";
-            })
-        })
+        this.selectedAirport = {};
+        this.airportUserselected = false;
     }
 
     onUpdate(_deltaTime) {
-        super.onUpdate(_deltaTime);        
-
+        super.onUpdate(_deltaTime);     
+        
     }
 
     directTo() {
@@ -2930,41 +2928,53 @@ class lxn_Touch_NRST_Airport extends NavSystemTouch_NRST_Airport {
         this.gps.computeEvent("DirectTo_Push");
     }
 
-    getAiportinfo() {
-        let airport;
-        if(this.lastselected != this.selectedElement) {
-            // this.lastselected = this.selectedElement;
-            
-            if(this.selectedElement != -1) {
-                airport = this.nearestAirports.airports[this.selectedElement];
-            } else {
-                airport = this.nearestAirports.airports[0];
-            }
-
-            let aptinfo = {
-                name: airport.name,
-                icao: airport.ident,
-                dist: airport.distance,
-                bearing: airport.bearing,
-                latlong: new LatLong(airport.coordinates.lat,airport.coordinates.long),
-                longestRunway: airport.longestRunwayLength,
-                longestRunwayDirection: airport.longestRunwayDirection
-            }
-
-            return aptinfo;
+    clickOnElement(_index) {
+        if(this.selectedAirport.ident == this.nearestAirports.airports[_index].ident) {
+            // Re-clicked the selected airport. deselect and default to nearest Airport
+            this.setselectedAirport(this.nearestAirports.airports[0]);
+            this.airportUserselected = false;
         } else {
-            return false;
+            this.setselectedAirport(this.nearestAirports.airports[_index]);
+            this.airportUserselected = true;
         }
+
+        this.updateSelectedEntry();
     }
 
+    updateSelectedEntry() {
+        let instrument = this;
+
+        this.table.querySelectorAll(".mainValue").forEach((el)=> {
+            let parent_tr = el.parentNode.parentNode.parentNode;
+            if(el.innerText == instrument.selectedAirport.ident) {
+                parent_tr.classList.add("selected");
+            } else {
+                parent_tr.classList.remove("selected");
+            }
+        })
+    }
+
+    getSelectedAirport() {
+        if(!this.airportUserselected) {
+            this.setselectedAirport(this.nearestAirports.airports[0]);
+        } 
+        this.updateSelectedEntry();
+        return this.selectedAirport;
+    }
+
+    setselectedAirport(apt) {
+        this.selectedAirport = {
+            ident: apt.ident,
+            name: apt.name,
+            distance: apt.distance,
+            bearing: apt.bearing,
+            longestRunwayLength: apt.longestRunwayLength,
+            longestRunwayDirection: apt.longestRunwayDirection,
+            latlng: new LatLong(apt.coordinates.lat,apt.coordinates.long)
+        }
+    }
         
 }
-
-
-
-
-
-
 
 
 
