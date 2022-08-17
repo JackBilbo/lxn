@@ -6,9 +6,9 @@ There's two folders included. "LX_MAP" for the Gotfriends Discus 2C and "nav" fo
 
 Basic Features:
 
-All Information is organized in „pages“ (horizontally) and „sub-pages“ (vertically). Pages can be changed by „click and drag“ with the mouse or - more comfortably - through keybinding „transponder(100)“ for horizontal and transponder (1) for vertical scrolling. 
+All Information is organized in „pages“ (horizontally) and „sub-pages“ (vertically). Pages can be changed by „click and drag“ with the mouse or - more comfortably - through keybinding „transponder(100)“ for horizontal and transponder (1) for vertical scrolling. transponder(10) is used for map zoom.
 
-Currently there are five main pages: „APT“ for navigation to the selected Airport, „WPT“ for navigating a task/flightplan, „TASK“ for the current state of the task, "Kinetic Assitant" for launching throug KA and „CONFIG“, which is currently only used to switch units between metric and imperial and for a read-only view of weight & balance.
+Currently there are five main pages: „APT“ for navigation to the selected Airport, „WPT“ for navigating a task/flightplan, „TASK“ for the current state of the task, "Kinetic Assitant" for launching through KA and „CONFIG“, which is currently only used to switch units between metric and imperial and for a read-only demo-view of weight & balance.
 
 „APT“ Page automatically selects the nearest Airport as target. On the second subpage „below“ Airport overview there is a list of close airports where you can click any airport to select it for navigation. Rather experimental feature, as there isn't much documentation on the needed Jacascript features.
 
@@ -16,9 +16,9 @@ Currently there are five main pages: „APT“ for navigation to the selected Ai
 
 Data field Configurations are persistent between simulator sessions. Click „reset all“ in the configuration popup to reset all data fields to default. Discus and DG808 use the same variables for storage, so the panel layout and preferences will be the same. If you really want different setups for both aircraft, give me as call.
 
-The task management system is a clone of Ian „B21“ Lewis’ Soaring Engine in the AS33. Some features like calculating glide ratios could not be recreated, as they are dependent of other instruments in the AS33. Others are still on the to do list.
+The task management system is a clone of Ian „B21“ Lewis’ Soaring Engine from the AS33. Some features like calculating glide ratios could not be recreated, as they are dependent of other instruments in the AS33. Others are still on the to do list.
 
-The wind indicator in the center of the map is loosely based on the LX-„Hawk“ system displaying current (blue) and average (grey) wind-arrows and a green/red column indicator for the vertical wind component.
+The wind indicator in the center of the map is loosely based on the real world LX-„Hawk“ system displaying current (blue) and average (grey) wind-arrows and a green/red column indicator for the vertical wind component.
 
 
 Known Limitations: 
@@ -33,7 +33,7 @@ Known Limitations:
 
  
 
-Developers:
+Developer Info:
 
 The front end is intended to be easily extensible with new features. New pages and sub-pages can be added by simply copy/pasting the respective HTML-Structures.
 
