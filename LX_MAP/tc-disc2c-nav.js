@@ -968,7 +968,7 @@ class lxn extends NavSystemTouch {
         let svg_el = document.getElementById("lift_dots");
 
         let color = this.vars.current_netto.value > 0 ? "#14852c" : "#cc0000";
-        let radius = Math.max(5, Math.min(Math.abs(this.vars.current_netto.value) * 8, 30));
+        let radius = Math.max(3, Math.min(Math.abs(this.vars.current_netto.value) * 6, 15));
         var newdot = this.svg_circle(position, radius, 1, color);
         newdot.setAttribute("fill", color);
     
@@ -1068,13 +1068,14 @@ class lxn extends NavSystemTouch {
     }
 
     initKineticAssistant() {
+        let instrument = this;
         this.ground_crew_menu = document.getElementById("ground_crew_menu");
 		this.ground_crew_winch = document.getElementById("ground_crew_winch");
-		this.ground_crew_winch.onclick = function(e) {	parent.toggleKA(50);	};
+		this.ground_crew_winch.onclick = function(e) {	instrument.toggleKA(50);	};
 		this.ground_crew_push = document.getElementById("ground_crew_push");
-		this.ground_crew_push.onclick = function(e) {	parent.toggleKA(75);	};
+		this.ground_crew_push.onclick = function(e) {	instrument.toggleKA(75);	};
 		this.ground_crew_tow = document.getElementById("ground_crew_tow");
-		this.ground_crew_tow.onclick = function(e) {	parent.toggleKA(100);	};
+		this.ground_crew_tow.onclick = function(e) {	instrument.toggleKA(100);	};
         this.KAisInit = true;
     }
 

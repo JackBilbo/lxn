@@ -772,6 +772,8 @@ lxn-nav {
 	background-color: rgba(0,0,0,0.3);
 }
 
+.map_trackup #hawk #number { bottom: -180px; }
+
 #hawk #vertical_indicator {
 	position: absolute;
 	width: calc(var(--devicewidth) / 8);
