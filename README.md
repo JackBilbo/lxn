@@ -1,3 +1,8 @@
+Updates:
+- fixed bug where selected airport was not updated for navigation
+- fixed bug that prevented map to go into correct track-up-mode
+
+
 # Nav rework for MSFS gliders
 
 Installation:
