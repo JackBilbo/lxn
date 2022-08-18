@@ -219,7 +219,6 @@ class lxn extends NavSystemTouch {
                 document.querySelector("#battery_required").setAttribute("class","map_trackup");
             }
 
-            LXNAV.vars.debug_1.value = LXNAV.map_rotation;
             LXNAV.set_map_rotation(LXNAV.map_rotation);
         });
 
@@ -1010,8 +1009,8 @@ class lxn extends NavSystemTouch {
             this.vars.sel_apt_icao.value = selApt.ident;  
             this.vars.sel_apt_name.value = selApt.name;
             this.vars.sel_apt_alt.value = 0;
-            this.vars.sel_apt_bearing.value = selApt.bearing;
-            this.vars.sel_apt_dist.value = selApt.distance; 
+            this.vars.sel_apt_bearing.value = Geo.get_bearing_deg(this.PLANE_POSITION, selApt.latlng);
+            this.vars.sel_apt_dist.value = Geo.get_distance_m(this.PLANE_POSITION, selApt.latlng) / 1852;
             this.vars.sel_apt_arr_agl.value = 0;
               
             let line = this.svg_line( this.PLANE_POSITION, selApt.latlng, 3,"#ffcc00",0,0); 
@@ -1029,7 +1028,7 @@ class lxn extends NavSystemTouch {
             /* redundant code, but better the reinventing a square wheel */
             
             // Delta is angle between wind and waypoint
-            let delta_radians = Geo.DEG_TO_RAD(this.WIND_DIRECTION_DEG - selApt.bearing - 180);
+            let delta_radians = Geo.DEG_TO_RAD(this.WIND_DIRECTION_DEG - this.vars.sel_apt_bearing.value - 180);
 
             // wind_x_mps is wind speed along line to waypoint (+ve is a tailwind)
             let wind_x_ms = Math.cos(delta_radians) * this.WIND_SPEED_MS;
@@ -1055,7 +1054,7 @@ class lxn extends NavSystemTouch {
             let time_to_wp_s;
             let height_needed_m;
             
-            time_to_wp_s = (selApt.distance * 1852) / velocity_made_good_ms;
+            time_to_wp_s = (this.vars.sel_apt_dist.value * 1852) / velocity_made_good_ms;
             height_needed_m = time_to_wp_s * Math.abs(this.STF_SINK_0_MS); // Sink is negative
             selApt.arrival_height_msl_m = this.ALTITUDE_M - height_needed_m;
 
