@@ -646,9 +646,9 @@ class lxn extends NavSystemTouch {
         }
 
         if(category == "alt" || category == "dist") {
-            if(result > 9999) {
+            if(Math.abs(result) > 9999) {
                 result = (result/1000).toFixed(1) + "k";
-            } else if (result < 100) {
+            } else if (Math.abs(result) < 100) {
                 result = result.toFixed(1);
             } else {
                 result = result.toFixed(0);
@@ -1601,7 +1601,7 @@ class lxn extends NavSystemTouch {
                 wp_el.querySelector(".wp-max").innerHTML = wp.min_alt_m != null ? this.displayValue(wp.max_alt_m, "m", "alt") +  this.units.alt.pref : "";
                 wp_el.querySelector(".wp-radius").innerHTML = wp.radius != null ? this.displayValue(wp.radius, "m", "alt") +  this.units.alt.pref : "";
             } else {
-                wp_el.querySelector(".wp-minmax").innerHTML = "";
+                wp_el.querySelector(".wp-minmax").style.display = "none";
             }
         }       
     }

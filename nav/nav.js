@@ -649,9 +649,9 @@ class lxn extends NavSystemTouch {
         }
 
         if(category == "alt" || category == "dist") {
-            if(result > 9999) {
+            if(Math.abs(result) > 9999) {
                 result = (result/1000).toFixed(1) + "k";
-            } else if (result < 100) {
+            } else if (Math.abs(result) < 100) {
                 result = result.toFixed(1);
             } else {
                 result = result.toFixed(0);
