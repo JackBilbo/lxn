@@ -1565,11 +1565,11 @@ class lxn extends NavSystemTouch {
         document.querySelector(".task-state .arrivalheight .unit").innerHTML = this.units.alt.pref;
 
         if(this.task_started()) {
-            document.getElementById("tasklist").setAttribute("class","task_running");
+            document.getElementById("tasklist").setAttribute("class","task_running hasScrollbars");
         } 
         
         if (this.task.finished) {
-            document.getElementById("tasklist").setAttribute("class","task_finished");
+            document.getElementById("tasklist").setAttribute("class","task_finished hasScrollbars");
         }
 
         for (let wp_index=0; wp_index<this.task_length(); wp_index++) {
