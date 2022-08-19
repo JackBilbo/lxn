@@ -62,8 +62,6 @@ class lxn extends NavSystemTouch {
             oat: { value: 1, label: "OAT", longlabel: "Outside Air Temperature",category:"temperature", baseunit: "F"},
             ballast: { value: 348, label: "Ballast", longlabel: "Current Ballast",category:"weight", baseunit: "lbs"},
             localtime: { value: 0, label: "Local", longlabel: "Local Time", category: "time_of_day", baseunit: "s"},
-            debug_1: { value: "", label: "DEBUG_1", longlabel: "Debug Value 1", category: "plaintext", baseunit: "none" },
-            debug_2: { value: "", label: "DEBUG_2", longlabel: "Debug Value 2", category: "plaintext", baseunit: "none" },
             sel_apt_icao: { value: "XXXX", label: "APT ICAO", longlabel: "Selected Airport ICAO", category: "plaintext", baseunit: "none" },
             sel_apt_name: { value: "NAME", label: "APT NAME", longlabel: "Selected Airport Name", category: "plaintext", baseunit: "none" },
             sel_apt_alt: { value: 0, label: "APT ALT", longlabel: "Selected Airport Altitude", category: "alt", baseunit: "ft" },
