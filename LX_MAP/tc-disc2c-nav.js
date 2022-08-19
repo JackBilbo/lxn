@@ -1597,9 +1597,9 @@ class lxn extends NavSystemTouch {
 
 
             if(wp.radius_m != null || wp.min_alt_m != null || wp.max_alt_m != null) {
-                wp_el.querySelector(".wp-min").innerHTML = wp.min_alt_m != null ? this.displayValue(wp.min_alt_m, "m", "alt") +  this.units.alt.pref : "";
-                wp_el.querySelector(".wp-max").innerHTML = wp.min_alt_m != null ? this.displayValue(wp.max_alt_m, "m", "alt") +  this.units.alt.pref : "";
-                wp_el.querySelector(".wp-radius").innerHTML = wp.radius != null ? this.displayValue(wp.radius, "m", "alt") +  this.units.alt.pref : "";
+                wp_el.querySelector(".wp-min").innerHTML = wp.min_alt_m != null ? "Min: " + this.displayValue(wp.min_alt_m, "m", "alt") +  this.units.alt.pref : "";
+                wp_el.querySelector(".wp-max").innerHTML = wp.min_alt_m != null ? "Max: " + this.displayValue(wp.max_alt_m, "m", "alt") +  this.units.alt.pref : "";
+                wp_el.querySelector(".wp-radius").innerHTML = wp.radius_m != null ? "Radius: " + this.displayValue(wp.radius_m, "m", "alt") +  this.units.alt.pref : "";
             } else {
                 wp_el.querySelector(".wp-minmax").style.display = "none";
             }
