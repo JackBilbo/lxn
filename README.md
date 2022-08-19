@@ -7,7 +7,7 @@ Updates:
 
 Installation:
 
-There's two folders included. "LX_MAP" for the Gotfriends Discus 2C and "nav" for the DG808 by Touching Cloud. Simply find those folders in your MSFS community folder and replace existing files: Discus: //community/gotfriends2c-premium/html_ui/Pages/VCockpit/Instruments/TouchingCloud/ - DG808: //community/touchingcloud-aircraft-dg808s/html_ui/Pages/VCockpit/Instruments/DG808S - clever Hobbits backup their original files before overwriting, so they can simply restore the originals to uninstall.
+Copy the folder "LX_MAP" into the correct location in your Community-Folder: //community/gotfriends2c-premium/html_ui/Pages/VCockpit/Instruments/TouchingCloud/ make sure to backup your original files and restore them to uninstall.
 
 Basic Features:
 
