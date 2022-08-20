@@ -34,7 +34,7 @@ Known Limitations:
 
 - The map can not be panned. To avoid collision with „click and drag“ page changing another „mode switch“ would be needed. Considering the current quality of the ingame map, I don’t think it’s worth the added complexity. 
 
-- „Thermalling help“ through the typical green and red dots is a very basic „quick and dirty“ implementation
+- „Thermalling help“ through the typical green and red dots is a very basic „quick and dirty“ implementation. So far it can not be toggled. As soon as you are in the air the dotted trail will show.
 
  
 
